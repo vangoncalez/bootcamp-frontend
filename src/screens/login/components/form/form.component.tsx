@@ -4,6 +4,8 @@ import InputText from '../../../../components/inputs/input-text/input-text.compo
 import * as yup from 'yup'
 import { ErrorMessage } from './forms.types'
 import { ErrorDescription } from './form.styled'
+import { useDispatch } from 'react-redux'
+import { userActions } from '../../../../store/user/user.slice'
 
 const errorInitial = ''
 
@@ -11,6 +13,8 @@ export default function Form() {
 
 	const [data, setData] = useState({ email: '', password: '' })
 	const [error, setError] = useState (errorInitial)
+
+	const dispatch = useDispatch()
 
 	// const handleChange = (event: any) => setData(prevState => ({
 	// 	...prevState,
@@ -51,9 +55,12 @@ export default function Form() {
 
 	const onSubmit = useCallback(
 		async () => {
-			await validation()
+			if(await validation()){
+				dispatch(userActions.login(data))
+			}
 		},
-		[validation]
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		[validation, data]
 	)
 
 	return (
