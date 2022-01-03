@@ -1,6 +1,6 @@
 ## Bootcamp Frontend: Clone Netflix 
 
-### Bootcamp Ethos
+### Bootcamp Etho
 
 Projeto em desenvolvimento
 
