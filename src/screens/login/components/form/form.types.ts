@@ -3,7 +3,7 @@ export enum ErrorMessage {
 	EmailBadFormat = 'O e-email não é válido'
 }
 
-export enum HttpResponse {
-	Ok = 0,
-	Error = 1,
-}
+// export enum HttpResponse {
+// 	Ok = 0,
+// 	Error = 1,
+// }
