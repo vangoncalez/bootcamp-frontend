@@ -10,11 +10,6 @@ const store = configureStore({
   middleware: [sagaMiddleware]
 })
 
-// const store = configureStore({
-// 	reducer: { user: userReducer },
-// 	applyMiddleware(sagaMiddleware)
-// })
-
 sagaMiddleware.run(userSaga)
 
 export default store

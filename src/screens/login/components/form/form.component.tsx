@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useCallback, useEffect, useMemo } from 'react'
 import Button from '../../../../components/buttons/button/button.component'
 import InputText from '../../../../components/inputs/input-text/input-text.component'
 import * as yup from 'yup'
@@ -6,7 +6,7 @@ import { ErrorMessage } from './form.types'
 import { ErrorDescription } from './form.styled'
 import { useDispatch, useSelector } from 'react-redux'
 import { userActions } from '../../../../store/user/user.slice'
-import { isAuthenticated } from "../../../../store/user/user.selectors"
+import { isAuthenticated , isLoading } from "../../../../store/user/user.selectors"
 import { useLocation, useNavigate } from "react-router-dom"
 import { HomePath } from '../../../home/home.types'
 
@@ -20,6 +20,7 @@ export default function Form() {
     const navigate = useNavigate();
     const location = useLocation();
     const isUserAuthentication = useSelector(isAuthenticated);
+    const isUserLoading = useSelector(isLoading)
 
     useEffect(
         () => {
@@ -30,6 +31,11 @@ export default function Form() {
         },
         // eslint-disable-next-line react-hooks/exhaustive-deps
         [isUserAuthentication]
+    )
+
+    const buttonDescription = useMemo(
+        () => isUserLoading ? 'Carregando...' : 'Entrar',
+        [isUserLoading]
     )
 
 	const resetError = useCallback(
@@ -85,7 +91,7 @@ export default function Form() {
 			<InputText type={'text'} placeholder={'E-mail'} name='email' onChange={(evento): void => handleChange(evento)} />
 			<InputText type={'password'} placeholder={'Senha'} name='password' onChange={(evento): void => handleChange(evento)} />
 			<ErrorDescription>{error}</ErrorDescription>
-			<Button primary onClick={onSubmit}>Entrar</Button>
+			<Button primary onClick={onSubmit}>{buttonDescription}</Button>
 
 
 		</>
